@@ -1,0 +1,7 @@
+{
+  "name": "acao-diaria",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

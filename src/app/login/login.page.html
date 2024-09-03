@@ -1,0 +1,42 @@
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <img src="assets/imgs/logo.png" alt="Logo" class="logo">
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Login</ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input 
+            type="email" 
+            [(ngModel)]="loginData.email" 
+            required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Senha</ion-label>
+          <ion-input 
+            type="password" 
+            [(ngModel)]="loginData.password" 
+            required>
+          </ion-input>
+        </ion-item>
+
+        <ion-button 
+          expand="full" 
+          (click)="login()">
+          Entrar
+        </ion-button>
+        
+        <ion-text class="signup-text">
+          Não tem uma conta? 
+          <a [routerLink]="['/signup']">Cadastre-se</a>
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
