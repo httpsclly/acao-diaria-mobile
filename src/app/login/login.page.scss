@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
+ion-content {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+}
+
+.login-container {
+  width: 100%;
+  max-width: 500px; /* Ajuste a largura máxima conforme necessário */
+  padding: 16px; /* Adicione um padding interno se necessário */
+  margin-top: 100px; /* Ajusta o espaçamento superior */
+}
+
+
