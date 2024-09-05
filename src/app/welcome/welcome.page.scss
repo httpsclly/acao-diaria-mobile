@@ -1,3 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;1,200&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+p{
+  font-family: "Raleway", system-ui;
+  color: #365f46;
+  font-size: 16px;
+}
+
+h1 {
+  font-family: "Merriweather", serif;
+    color: 000000;
+  text-align: center; /* Centraliza o texto */
+  word-wrap: break-word; /* Quebra o texto para caber em várias linhas, se necessário */
+  overflow-wrap: break-word; /* Também garante a quebra de palavras longas */
+  margin: 0 auto; /* Centraliza o elemento no container */
+  max-width: 90%; /* Limita a largura do texto para não ocupar toda a tela */
+}
+
 .welcome-container {
   display: flex;
   flex-direction: column;
@@ -7,8 +27,101 @@
   text-align: center;
 }
 
-.logo {
-  width: 200px;
+.logoacao {
+  width: 33vw; 
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: 4vh; 
+  position: absolute;
+  top: 2vh; 
+  left: 2vw; 
+}
+
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Alinha os itens para a parte inferior da tela */
+  align-items: center;
+  height: 100%;
+  padding-bottom: 10vh; /* Espaço para os elementos não ficarem colados no fundo */
+}
+
+
+.welcomeimg {
+  width: 80vw; /* Ajuste para a largura da imagem */
+  height: auto;
+  margin: 3vh 0; /* Espaçamento ao redor da imagem */
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: -6vh; /* Mantém a div próxima ao fundo */
+}
+
+
+// button
+ion-button {
+  --background: #0E8B83; /* Cor de fundo verde */
+  --padding-start: 15px; /* Aumenta o espaçamento interno à esquerda */
+  --padding-end: 15px; /* Aumenta o espaçamento interno à direita */
+  --padding-top: 15px; /* Aumenta o espaçamento interno superior */
+  --padding-bottom: 15px; /* Aumenta o espaçamento interno inferior */
+  --color: white; /* Cor do texto */
+  --font-size: 20px; /* Aumenta o tamanho da fonte */
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  width: 60%; /* Aumenta a largura do botão */
+  max-width: 400px; /* Limita a largura máxima */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Animação de transição */
+  border-radius: 106px !important;
+}
+
+ion-button:hover {
+  --background: #097a73; /* Cor de fundo ao passar o mouse */
+  transform: scale(1.05); /* Aumenta levemente o botão */
+}
+
+ion-button:active {
+  transform: scale(0.98); /* Encolhe levemente ao clicar */
+}
+
+// animação
+/* Animação de entrada para o texto */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animação de entrada para a imagem */
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Aplicando animações ao texto */
+h1,p {
+  animation: fadeInUp 1s ease-out;
+}
+
+/* Aplicando animações à imagem */
+.welcomeimg {
+  animation: fadeInLeft 2s ease-out;
+}
+
+/* Ajuste a animação da logo */
+ion-button {
+  animation: fadeInLeft 1s ease-out;
 }

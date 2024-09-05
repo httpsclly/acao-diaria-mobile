@@ -1,15 +1,16 @@
 <ion-content class="ion-padding">
   <div class="signup-container">
-    <img src="assets/imgs/logo.png" alt="Logo" class="logo">
+    <img src="assets/logoacao.png" alt="Logo" class="logoacao" />
 
-    <ion-card>
+    <!-- Card de cadastro movido para baixo -->
+    <ion-card class="signup-card">
       <ion-card-header>
         <ion-card-title>Cadastro</ion-card-title>
       </ion-card-header>
       
       <ion-card-content>
         <ion-item>
-          <ion-label position="floating">Nome</ion-label>
+          <ion-label position="floating">Username</ion-label>
           <ion-input type="text" [(ngModel)]="signupData.name" required></ion-input>
         </ion-item>
 
