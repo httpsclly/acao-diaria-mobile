@@ -1,31 +1,63 @@
-<ion-content class="ion-padding">
+<ion-content class="ion-padding signup-page">
   <div class="signup-container">
+    <!-- Logo -->
     <img src="assets/logoacao.png" alt="Logo" class="logoacao" />
 
-    <!-- Card de cadastro movido para baixo -->
-    <ion-card class="signup-card">
-      <ion-card-header>
-        <ion-card-title>Cadastro</ion-card-title>
-      </ion-card-header>
-      
-      <ion-card-content>
-        <ion-item>
-          <ion-label position="floating">Username</ion-label>
-          <ion-input type="text" [(ngModel)]="signupData.name" required></ion-input>
-        </ion-item>
+    <!-- Formulário de Cadastro -->
+    <form (ngSubmit)="register()" class="signup-form">
+      <!-- Campo Username -->
+      <ion-item lines="none" class="input-item">
+        <ion-label position="floating">Username</ion-label>
+        <ion-input
+          type="text"
+          [(ngModel)]="signupData.name"
+          name="name"
+          required
+        ></ion-input>
+      </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Email</ion-label>
-          <ion-input type="email" [(ngModel)]="signupData.email" required></ion-input>
-        </ion-item>
+      <!-- Campo Email -->
+      <ion-item lines="none" class="input-item">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input
+          type="email"
+          [(ngModel)]="signupData.email"
+          name="email"
+          required
+        ></ion-input>
+      </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Senha</ion-label>
-          <ion-input type="password" [(ngModel)]="signupData.password" required></ion-input>
-        </ion-item>
+      <!-- Campo Senha -->
+      <ion-item lines="none" class="input-item">
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input
+          type="password"
+          [(ngModel)]="signupData.password"
+          name="password"
+          required
+          maxlength="7"
+          pattern="[0-9]*"
+          inputmode="numeric"
+        ></ion-input>
+      </ion-item>
 
-        <ion-button expand="full" (click)="register()">Cadastrar</ion-button>
-      </ion-card-content>
-    </ion-card>
+      <!-- Mensagem de erro se a senha não for válida -->
+      <ion-text
+        color="danger"
+        *ngIf="!isPasswordValid(signupData.password) && signupData.password"
+      >
+        A senha deve conter exatamente 7 caracteres numéricos.
+      </ion-text>
+
+      <!-- Botão Cadastrar -->
+      <ion-button expand="block" type="submit" class="signup-btn">
+        Cadastrar
+      </ion-button>
+
+      <!-- Texto de Login -->
+      <ion-text class="login-text">
+        Já tem uma conta? <a [routerLink]="['/login']">Faça login</a>
+      </ion-text>
+    </form>
   </div>
 </ion-content>

@@ -5,3 +5,77 @@
     margin-top: 100px; /* Ajusta o espaçamento superior */
 }
 
+.signup-container {
+    width: 100%;
+    max-width: 500px; /* Ajuste a largura máxima conforme necessário */
+    padding: 16px; /* Adicione um padding interno se necessário */
+    margin-top: 100px; /* Ajusta o espaçamento superior */
+  }
+  .signup-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background: linear-gradient(135deg, #f0f0f0, #ffffff);
+  }
+  
+  .signup-container {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-item {
+    margin-bottom: 16px;
+  }
+  
+  .signup-btn {
+    margin-top: 20px;
+    --background: #0e8b82;
+    --background-focused: #0d7e76;
+    --background-hover: #0c6f69;
+    --background-activated: #0b605d;
+    --border-radius: 8px;
+  }
+  
+  .login-text {
+    margin-top: 16px;
+    color: #6b7280;
+  }
+  
+  .login-text a {
+    color: #0e8b82;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .input-item ion-input {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input-item ion-input:focus {
+    border-bottom: 1px solid #0e8b82;
+  }
+  
+  .input-item ion-input.input-has-value {
+    border-bottom: 1px solid #0e8b82;
+  }
+  
+  .toast-message {
+    --background: #333;
+    --color: #fff;
+  }
+  
+  /* Estilo para o toast */
+  .toast-message {
+    --background: #333; /* Cor de fundo do toast */
+    --color: #fff; /* Cor do texto do toast */
+  }
+  

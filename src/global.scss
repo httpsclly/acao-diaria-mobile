@@ -34,19 +34,40 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.class.css';
+@import "@ionic/angular/css/palettes/dark.class.css";
 
 .logoacao {
-    width: 33vw;
-    height: auto;
-    margin-bottom: 4vh;
-    position: absolute;
-    top: 2vh;
-    left: 2vw;
-  }
-  
-  ion-button {
-    border-radius: 66px !important;
-  }
-  
+  width: 33vw;
+  height: auto;
+  margin-bottom: 4vh;
+  position: absolute;
+  top: 2vh;
+  left: 2vw;
+}
 
+ion-button {
+  border-radius: 66px !important;
+}
+
+/* Estilo para o ion-header */
+ion-header {
+  --background: transparent; /* Mantém o fundo transparente */
+}
+
+/* Estilo para o ion-toolbar */
+ion-toolbar {
+  --background: #0E8B83; /* Cor de fundo da barra de ferramentas */
+  --color: #ffffff; /* Cor do texto */
+  padding: 16px; /* Espaçamento interno */
+  position: relative; /* Necessário para posicionar o pseudo-elemento */
+  overflow: hidden; /* Garante que a "onda" não ultrapasse o contêiner */
+}
+
+/* Estilo para o ion-title */
+ion-title {
+  font-size: 24px; /* Tamanho da fonte do título */
+  font-weight: bold; /* Peso da fonte do título */
+  text-align: center; /* Alinhamento do texto */
+  position: relative; /* Para garantir que o título fique sobre a onda */
+  z-index: 1; /* Traz o título para frente do pseudo-elemento */
+}

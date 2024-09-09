@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -13,26 +13,56 @@ export class LoginPage {
     password: ''
   };
 
-  constructor(private navCtrl: NavController) { }
+  constructor(private navCtrl: NavController, private alertController: AlertController) { }
 
-  login() {
+  // Função para alternar a visibilidade da senha
+  togglePasswordVisibility() {
+    this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
+    this.passwordIcon = this.passwordType === 'password' ? 'eye-off' : 'eye';
+  }
+
+  // Função para validar a senha
+  isPasswordValid(password: string): boolean {
+    const passwordPattern = /^[0-9]{7}$/; // Expressão regular para 7 dígitos numéricos
+    return passwordPattern.test(password);
+  }
+
+  // Função para validar o email
+  isEmailValid(email: string): boolean {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expressão regular para validação de email
+    return emailPattern.test(email);
+  }
+
+  // Função para exibir um alerta
+  async presentAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Erro',
+      message: message,
+      buttons: ['OK'],
+      cssClass: 'alert-message' // Adiciona a classe de estilo ao alerta
+    });
+
+    await alert.present();
+  }
+
+  // Função de login
+  async login() {
+    // Verificar se o email e a senha são válidos
+    if (!this.isEmailValid(this.loginData.email)) {
+      await this.presentAlert('O email inserido é inválido.');
+      return;
+    }
+
+    if (!this.isPasswordValid(this.loginData.password)) {
+      await this.presentAlert('A senha deve conter exatamente 7 caracteres numéricos.');
+      return;
+    }
+
     // Simula um login bem-sucedido e redireciona para a página principal das tabs
     this.navCtrl.navigateRoot('/tabs');
   }
 
-  usernameType: string = 'text';
+  // Controle de visibilidade da senha
   passwordType: string = 'password';
-  usernameIcon: string = 'eye-off';
   passwordIcon: string = 'eye-off';
-
-  toggleUsernameVisibility() {
-    this.usernameType = this.usernameType === 'text' ? 'password' : 'text';
-    this.usernameIcon = this.usernameType === 'text' ? 'eye-off' : 'eye';
-  }
-
-  togglePasswordVisibility() {
-    this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
-    this.passwordIcon = this.passwordType === 'text' ? 'eye-off' : 'eye';
-  }
 }
-
