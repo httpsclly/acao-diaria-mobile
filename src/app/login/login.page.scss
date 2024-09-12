@@ -1,16 +1,75 @@
 @import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
 
-ion-content {
-  display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center; /* Centraliza verticalmente */
-}
-
 .login-container {
-  width: 100%;
-  max-width: 500px; /* Ajuste a largura máxima conforme necessário */
-  padding: 16px; /* Adicione um padding interno se necessário */
-  margin-top: 100px; /* Ajusta o espaçamento superior */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: #ffffff; 
 }
 
+.logoacao {
+  width: 120px;
+  margin-bottom: 30px;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #0a6862; /* Cor principal */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+ion-item {
+  --background: transparent;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0 8px;
+  width: 100%;
+}
+
+ion-input {
+  --padding-start: 0;
+  width: 100%;
+}
+
+
+.signup-text {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+.signup-text a {
+  color: #0E8B83; /* Cor principal */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signup-text a:hover {
+  text-decoration: underline;
+}
+
+ion-button {
+  margin-top: 20px;
+  --background: #0E8B83; /* Cor principal */
+  --color: white;
+  border-radius: 8px;
+}
 

@@ -1,81 +1,84 @@
-.signup-container {
-    width: 100%;
-    max-width: 500px; /* Ajuste a largura máxima conforme necessário */
-    padding: 16px; /* Adicione um padding interno se necessário */
-    margin-top: 100px; /* Ajusta o espaçamento superior */
+.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Cobrir toda a altura da tela */
+  background: linear-gradient(135deg, #f0f0f0, #ffffff);
+}
+
+.login-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #0a6862; /* Cor principal */
+  margin-bottom: 20px;
+  text-align: center;
+  border-bottom: 3px dotted #dddddd; /* Linha embaixo com a mesma cor */
+  padding-bottom: 10px; /* Espaço entre o texto e a linha */
 }
 
 .signup-container {
-    width: 100%;
-    max-width: 500px; /* Ajuste a largura máxima conforme necessário */
-    padding: 16px; /* Adicione um padding interno se necessário */
-    margin-top: 100px; /* Ajusta o espaçamento superior */
-  }
-  .signup-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    background: linear-gradient(135deg, #f0f0f0, #ffffff);
-  }
+  width: 100%;
+  max-width: 400px; 
+  background-color: #ffffff; 
+  border-radius: 12px;
+  padding: 20px; 
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2), 0 6px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-top: 100px; 
   
-  .signup-container {
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-  }
-  
-  .signup-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .input-item {
-    margin-bottom: 16px;
-  }
-  
-  .signup-btn {
-    margin-top: 20px;
-    --background: #0e8b82;
-    --background-focused: #0d7e76;
-    --background-hover: #0c6f69;
-    --background-activated: #0b605d;
-    --border-radius: 8px;
-  }
-  
-  .login-text {
-    margin-top: 16px;
-    color: #6b7280;
-  }
-  
-  .login-text a {
-    color: #0e8b82;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  
-  .input-item ion-input {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
-    transition: border-color 0.3s ease;
-  }
-  
-  .input-item ion-input:focus {
-    border-bottom: 1px solid #0e8b82;
-  }
-  
-  .input-item ion-input.input-has-value {
-    border-bottom: 1px solid #0e8b82;
-  }
-  
-  .toast-message {
-    --background: #333;
-    --color: #fff;
-  }
-  
-  /* Estilo para o toast */
-  .toast-message {
-    --background: #333; /* Cor de fundo do toast */
-    --color: #fff; /* Cor do texto do toast */
-  }
-  
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Expandir para largura total */
+}
+
+.input-item {
+  margin-bottom: 16px; /* Espaçamento inferior entre inputs */
+}
+
+.input-item ion-input {
+  border-bottom: 2px solid #ccc; /* Borda inferior */
+  padding-bottom: 8px; /* Espaçamento interno */
+  transition: border-color 0.3s ease; /* Animação de foco */
+  width: 100%;
+}
+
+.input-item ion-input:focus,
+.input-item ion-input.input-has-value {
+  border-bottom: 2px solid #365f46; /* Cor ao focar */
+}
+
+.signup-btn {
+  margin-top: 20px;
+  --background: #0E8B83; /* Cor principal */
+  --background-focused: #2f533c; /* Cor ao focar */
+  --background-hover: #2a4935; /* Cor ao passar o mouse */
+  --background-activated: #24402e; /* Cor ao clicar */
+  border-radius: 8px; /* Bordas arredondadas */
+  --color: white; /* Cor do texto */
+  width: 100%;
+}
+
+.login-text {
+  margin-top: 16px;
+  color: #6b7280; /* Cor de texto secundário */
+  font-size: 14px; /* Tamanho de fonte */
+}
+
+.login-text a {
+  color: #0E8B83; /* Cor principal para o link */
+  text-decoration: none;
+  font-weight: 500; /* Peso da fonte */
+}
+
+.login-text a:hover {
+  text-decoration: underline; /* Sublinha ao passar o mouse */
+}
+
+.toast-message {
+  --background: #333; /* Cor de fundo do toast */
+  --color: #fff; /* Cor do texto do toast */
+  border-radius: 8px; /* Bordas arredondadas */
+}

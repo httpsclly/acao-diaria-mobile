@@ -1,73 +1,50 @@
 <ion-content class="ion-padding">
   <div class="login-container">
-    <!-- <img src="assets/logoacao.png" alt="Logo" class="logo">  -->
     <img src="assets/logoacao.png" alt="Logo" class="logoacao" />
 
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Login</ion-card-title>
-      </ion-card-header>
+    <div class="login-form">
+      <h2 class="login-title">Login</h2>
 
-      <ion-card-content>
-        <ion-item>
-          <ion-input
-            id="username"
-            labelPlacement="stacked"
-            label="Username"
-            placeholder="Digite o seu user"
-            [type]="usernameType"
-          >
-            <ion-icon slot="start" name="person" aria-hidden="true"></ion-icon>
-            <ion-button
-              fill="clear"
-              slot="end"
-              aria-label="Show/hide"
-              (click)="toggleUsernameVisibility()"
-            >
-              <ion-icon
-                slot="icon-only"
-                [name]="usernameIcon"
-                aria-hidden="true"
-              ></ion-icon>
-            </ion-button>
-          </ion-input>
-        </ion-item>
+      <ion-item lines="none">
+        <ion-input
+          id="Email"
+          labelPlacement="stacked"
+          label="Email"
+          placeholder="Digite o seu email"
+          [(ngModel)]="loginData.email"
+        ></ion-input>
+        <ion-icon slot="start" name="person" aria-hidden="true"></ion-icon>
+      </ion-item>
 
-        <ion-item>
-          <ion-input
-            id="password"
-            labelPlacement="stacked"
-            label="Senha"
-            placeholder="Digite sua senha"
-            [type]="passwordType"
-          >
-            <ion-icon
-              slot="start"
-              name="lock-closed"
-              aria-hidden="true"
-            ></ion-icon>
-            <ion-button
-              fill="clear"
-              slot="end"
-              aria-label="Show/hide"
-              (click)="togglePasswordVisibility()"
-            >
-              <ion-icon
-                slot="icon-only"
-                [name]="passwordIcon"
-                aria-hidden="true"
-              ></ion-icon>
-            </ion-button>
-          </ion-input>
-        </ion-item>
+      <ion-item lines="none">
+        <ion-input
+          id="password"
+          labelPlacement="stacked"
+          label="Senha"
+          placeholder="Digite sua senha"
+          [type]="passwordType"
+          [(ngModel)]="loginData.password"
+          maxlength="7"
+          inputmode="numeric"
+          pattern="[0-9]*"
+        ></ion-input>
+        <ion-icon slot="start" name="lock-closed" aria-hidden="true"></ion-icon>
+        <ion-button
+          fill="clear"
+          slot="end"
+          aria-label="Show/hide"
+          (click)="togglePasswordVisibility()"
+        >
+          <ion-icon slot="icon-only" [name]="passwordIcon" aria-hidden="true"></ion-icon>
+        </ion-button>
+      </ion-item>
 
-        <ion-button expand="full" (click)="login()"> Entrar </ion-button>
+      <ion-button expand="full" (click)="login()">Entrar</ion-button>
 
-        <ion-text class="signup-text">
-          Não tem uma conta?
-          <a [routerLink]="['/signup']">Cadastre-se</a>
-        </ion-text>
-      </ion-card-content>
-    </ion-card>
+      <ion-text class="signup-text">
+        Não tem uma conta?
+        <a [routerLink]="['/signup']">Cadastre-se</a>
+      </ion-text>
+    </div>
   </div>
 </ion-content>

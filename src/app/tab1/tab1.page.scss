@@ -1,19 +1,62 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
 
-/* Estilos para a imagem dentro do ion-header */
-/* Garante que a imagem seja visível e ajustada dentro do ion-toolbar */
-.logoacao {
-    width: 100px; /* Ajuste conforme necessário */
-    height: auto; /* Mantém a proporção da imagem */
-    display: block; /* Garante que a imagem é exibida */
-    margin-right: 10px; /* Espaço entre a imagem e o título */
-    /* Adiciona uma borda temporária para verificar a visibilidade */
-    border: 1px solid red; /* Remova ou ajuste conforme necessário */
-  }
-  
-/* Ajustes adicionais para garantir que a imagem esteja centralizada com o título */
-ion-toolbar {
+ion-content, html, body {
+  overflow: hidden; /* Oculta as barras de rolagem */
+}
+
+.container, .todolist {
+  overflow: hidden; /* Garante que o conteúdo interno não cause rolagem */
+}
+
+h1 {
+  font-family: "Raleway", sans-serif;
+}
+
+p {
+  color: #365f46;
+  margin-top: -5px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: auto;
+  min-height: 80vh; /* Ajuste conforme necessário */
+  text-align: center;
+  padding-top: 60px; /* Ajuste o espaçamento do topo se necessário */
+}
+
+.todolist {
+  position: absolute;
+  bottom: 26vh; /* Ajusta a distância da parte inferior */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw; /* Ajuste a largura conforme necessário */
+  height: auto;
+  margin: 0;
+}
+
+.fab-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #0a6862;
+  color: white;
+  border: none;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Ajusta o espaçamento entre a imagem e o título */
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.fab-button:hover {
+  background-color: #084c4b;
 }
