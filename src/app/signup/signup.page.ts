@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, ToastController } from '@ionic/angular';
+import { UserService } from '../user.service'; // Corrigir o caminho se necessário
 
 @Component({
   selector: 'app-signup',
@@ -9,12 +10,16 @@ import { NavController, ToastController } from '@ionic/angular';
 export class SignupPage {
 
   signupData = {
-    name: '',
+    username: '',
     email: '',
-    password: ''
+    senha: ''
   };
 
-  constructor(private navCtrl: NavController, private toastController: ToastController) { }
+  constructor(
+    private navCtrl: NavController, 
+    private toastController: ToastController,
+    private userService: UserService // Injetar o serviço
+  ) { }
 
   // Função para exibir um toast
   async presentToast(message: string, color: string = 'danger') {
@@ -30,25 +35,30 @@ export class SignupPage {
   }
 
   async register() {
-    if (!this.signupData.name || !this.signupData.email || !this.signupData.password) {
+    if (!this.signupData.username || !this.signupData.email || !this.signupData.senha) {
       await this.presentToast('Preencha todos os campos.');
       return;
     }
 
-    if (!this.isPasswordValid(this.signupData.password)) {
+    if (!this.isPasswordValid(this.signupData.senha)) {
       await this.presentToast('A senha deve conter exatamente 7 caracteres numéricos.');
       return;
     }
 
-    // Simula a autenticação do cadastro
-    // Armazenar as informações do usuário no localStorage (ou pode ser uma chamada de API)
-    localStorage.setItem('user', JSON.stringify(this.signupData));
+    try {
+      // Enviar os dados para o backend usando o serviço
+      const response = await this.userService.register(this.signupData).toPromise();
+      
+      // Exibe uma mensagem de sucesso
+      await this.presentToast('Cadastro realizado com sucesso!', 'success');
 
-    // Exibe uma mensagem de sucesso
-    await this.presentToast('Cadastro realizado com sucesso!', 'success');
-
-    // Redireciona o usuário para a tela de login
-    this.navCtrl.navigateForward('/login');
+      // Redireciona o usuário para a tela de login
+      this.navCtrl.navigateForward('/login');
+    } catch (error) {
+      // Exibe uma mensagem de erro
+      await this.presentToast('Erro ao realizar o cadastro. Tente novamente.');
+      console.error('Erro ao registrar usuário', error);
+    }
   }
 
   isPasswordValid(password: string): boolean {
