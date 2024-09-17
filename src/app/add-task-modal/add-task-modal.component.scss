@@ -1,0 +1,69 @@
+/* add-task-modal.component.scss */
+
+/* Estilo para o cabeçalho do modal */
+ion-header {
+    --background: #007bff; /* Cor de fundo do cabeçalho */
+    --color: #fff; /* Cor do texto */
+  }
+  
+  ion-toolbar {
+    --padding-start: 16px;
+    --padding-end: 16px;
+  }
+  
+  ion-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  ion-buttons {
+    --padding-end: 0;
+  }
+  
+  ion-button {
+    --background: transparent;
+    --color: #10a8a1;
+    --border-radius: 50%;
+    --box-shadow: none;
+    --padding: 0;
+  }
+  
+  /* Estilo para o conteúdo do modal */
+  ion-content {
+    --background: #f9f9f9; /* Cor de fundo do conteúdo */
+    --padding: 16px;
+  }
+  
+  /* Estilo para os itens do formulário */
+  ion-item {
+    margin-bottom: 16px;
+  }
+  
+  ion-label {
+    color: #333; /* Cor do rótulo */
+  }
+  
+  ion-input, ion-datetime, ion-select {
+    --padding-start: 0;
+    --padding-end: 0;
+  }
+  
+  ion-datetime {
+    --border-radius: 4px;
+  }
+  
+  ion-select {
+    --border-radius: 4px;
+  }
+  
+  /* Estilo para o botão de adicionar tarefa */
+  ion-button.expand-full {
+    --background: #007bff; /* Cor de fundo do botão */
+    --color: #ffffff; /* Cor do texto do botão */
+    --border-radius: 25px;
+    --padding: 12px 0;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  
