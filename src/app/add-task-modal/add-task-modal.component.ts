@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-task-modal',
@@ -19,23 +20,62 @@ export class AddTaskModalComponent {
   showStartTimePicker: boolean = false;
   showEndTimePicker: boolean = false;
 
-  constructor(private modalController: ModalController) {}
+  constructor(
+    private modalController: ModalController,
+    private http: HttpClient
+  ) {}
 
   dismiss() {
     this.modalController.dismiss();
   }
 
-  addTask() {
+  async addTask() {
     if (this.taskName.trim() !== '' && this.taskDescription.trim() !== '') {
-      // Lógica para adicionar a tarefa
-      console.log('Nome da Tarefa:', this.taskName);
-      console.log('Descrição da Tarefa:', this.taskDescription);
-      console.log('Data:', this.taskDate);
-      console.log('Quando Inicia:', this.taskStartTime);
-      console.log('Quando Termina:', this.taskEndTime);
-      console.log('Cor da Tarefa:', this.taskColor);
+      const newTask = {
+        taskName: this.taskName,
+        taskDescription: this.taskDescription,
+        taskDate: this.taskDate,
+        taskStartTime: this.taskStartTime,
+        taskEndTime: this.taskEndTime,
+        taskColor: this.taskColor
+      };
 
-      // Fechar o modal após adicionar a tarefa
+      // Configurar headers para o POST request
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json'
+      });
+
+      try {
+        const response = await this.http.post<any>('http://127.0.0.1/acaodiaria/api.php', newTask, { headers, responseType: 'text' as 'json' }).toPromise();
+        console.log('Resposta da API:', response);
+
+        // Tentar converter a resposta em JSON
+        try {
+          const jsonResponse = JSON.parse(response);
+          console.log('Resposta JSON:', jsonResponse);
+          
+          // Verifica se a resposta contém mensagem de sucesso
+          if (jsonResponse && jsonResponse.message && jsonResponse.message.includes('sucesso')) {
+            // Fechar o modal em caso de sucesso
+            this.dismiss();
+          } else {
+            // Fechar o modal em caso de erro
+            this.dismiss();
+          }
+        } catch (jsonError) {
+          // Tratamento de erro específico para a análise do JSON
+          console.error('Erro ao analisar resposta JSON:', jsonError);
+          // Fechar o modal em caso de erro de análise
+          this.dismiss();
+        }
+      } catch (error) {
+        // Tratamento de erro específico para o POST request
+        console.error('Erro ao adicionar tarefa:', error);
+        // Fechar o modal em caso de erro no request
+        this.dismiss();
+      }
+    } else {
+      // Fechar o modal se o nome e a descrição não forem preenchidos
       this.dismiss();
     }
   }
