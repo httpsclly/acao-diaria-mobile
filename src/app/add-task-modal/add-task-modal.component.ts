@@ -20,6 +20,10 @@ export class AddTaskModalComponent {
   showStartTimePicker: boolean = false;
   showEndTimePicker: boolean = false;
 
+  // Definindo minDate e maxDate
+  minDate: string = new Date().toISOString().split('T')[0]; // Data mínima é hoje
+  maxDate: string = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0]; // Data máxima é 1 ano a partir de hoje
+
   constructor(
     private modalController: ModalController,
     private http: HttpClient
@@ -31,10 +35,13 @@ export class AddTaskModalComponent {
 
   async addTask() {
     if (this.taskName.trim() !== '' && this.taskDescription.trim() !== '') {
+      // Ajustar a data para o formato ISO antes de enviar ao backend
+      const formattedDate = new Date(this.taskDate).toISOString().split('T')[0];
+
       const newTask = {
         taskName: this.taskName,
         taskDescription: this.taskDescription,
-        taskDate: this.taskDate,
+        taskDate: formattedDate, // Enviando a data no formato ISO
         taskStartTime: this.taskStartTime,
         taskEndTime: this.taskEndTime,
         taskColor: this.taskColor
@@ -63,19 +70,14 @@ export class AddTaskModalComponent {
             this.dismiss();
           }
         } catch (jsonError) {
-          // Tratamento de erro específico para a análise do JSON
           console.error('Erro ao analisar resposta JSON:', jsonError);
-          // Fechar o modal em caso de erro de análise
           this.dismiss();
         }
       } catch (error) {
-        // Tratamento de erro específico para o POST request
         console.error('Erro ao adicionar tarefa:', error);
-        // Fechar o modal em caso de erro no request
         this.dismiss();
       }
     } else {
-      // Fechar o modal se o nome e a descrição não forem preenchidos
       this.dismiss();
     }
   }
@@ -99,14 +101,29 @@ export class AddTaskModalComponent {
   }
 
   hideDatePicker() {
+    // Apenas ocultar o date picker sem alterar o formato da data
     this.showDatePicker = false;
   }
 
   hideStartTimePicker() {
+    if (this.taskStartTime) {
+      const date = new Date(this.taskStartTime);
+      this.taskStartTime = date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    }
     this.showStartTimePicker = false;
   }
 
   hideEndTimePicker() {
+    if (this.taskEndTime) {
+      const date = new Date(this.taskEndTime);
+      this.taskEndTime = date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    }
     this.showEndTimePicker = false;
+  }
+
+  formatDate(dateString: string): string {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('pt-BR'); // Formata a data para o padrão brasileiro
   }
 }

@@ -20,59 +20,64 @@
     <ion-input [(ngModel)]="taskDescription"></ion-input>
   </ion-item>
 
-  <!-- Data -->
-  <ion-item>
-    <ion-label position="floating">Data</ion-label>
-    <ion-input
-      (click)="toggleDatePicker()"
-      [value]="taskDate"
-      readonly
-      placeholder="Selecionar Data"
-    ></ion-input>
-    <ion-icon name="calendar" slot="end" (click)="toggleDatePicker()"></ion-icon>
-    <ion-datetime
-      *ngIf="showDatePicker"
-      displayFormat="DD MMM YYYY"
-      [(ngModel)]="taskDate"
-      (ionBlur)="hideDatePicker()"
-    ></ion-datetime>
-  </ion-item>
+<!-- Data --> 
+<ion-item>
+  <ion-label position="floating">Data</ion-label>
+  <ion-input
+    (click)="toggleDatePicker()"
+    [value]="formatDate(taskDate)"
+    readonly
+    placeholder="Selecionar Data"
+  ></ion-input>
+  <ion-icon name="calendar" slot="end" (click)="toggleDatePicker()"></ion-icon>
+  <ion-datetime
+    *ngIf="showDatePicker"
+    displayFormat="DD/MM/YYYY"
+    [(ngModel)]="taskDate"
+    (ionBlur)="hideDatePicker()"
+  ></ion-datetime>
+</ion-item>
 
-  <!-- Quando Inicia -->
-  <ion-item>
-    <ion-label position="floating">Quando Inicia</ion-label>
-    <ion-input
-      (click)="toggleStartTimePicker()"
-      [value]="taskStartTime"
-      readonly
-      placeholder="Selecionar Início"
-    ></ion-input>
-    <ion-icon name="time" slot="end" (click)="toggleStartTimePicker()"></ion-icon>
-    <ion-datetime
-      *ngIf="showStartTimePicker"
-      displayFormat="HH:mm"
-      [(ngModel)]="taskStartTime"
-      (ionBlur)="hideStartTimePicker()"
-    ></ion-datetime>
-  </ion-item>
+<!-- Quando Inicia -->
+<ion-item>
+  <ion-label position="floating">Quando Inicia</ion-label>
+  <ion-input
+    (click)="toggleStartTimePicker()"
+    [value]="taskStartTime"
+    readonly
+    placeholder="Selecionar Início"
+  ></ion-input>
+  <ion-icon name="time" slot="end" (click)="toggleStartTimePicker()"></ion-icon>
+  <ion-datetime
+    *ngIf="showStartTimePicker"
+    displayFormat="HH:mm"
+    presentation="time" 
+    [(ngModel)]="taskStartTime"
+    (ionBlur)="hideStartTimePicker()"
+  ></ion-datetime> <!-- Fechando corretamente -->
+</ion-item>
 
-  <!-- Quando Termina -->
-  <ion-item>
-    <ion-label position="floating">Quando Termina</ion-label>
-    <ion-input
-      (click)="toggleEndTimePicker()"
-      [value]="taskEndTime"
-      readonly
-      placeholder="Selecionar Término"
-    ></ion-input>
-    <ion-icon name="time" slot="end" (click)="toggleEndTimePicker()"></ion-icon>
-    <ion-datetime
-      *ngIf="showEndTimePicker"
-      displayFormat="HH:mm"
-      [(ngModel)]="taskEndTime"
-      (ionBlur)="hideEndTimePicker()"
-    ></ion-datetime>
-  </ion-item>
+<!-- Quando Termina -->
+<ion-item>
+  <ion-label position="floating">Quando Termina</ion-label>
+  <ion-input
+    (click)="toggleEndTimePicker()"
+    [value]="taskEndTime"
+    readonly
+    placeholder="Selecionar Término"
+  ></ion-input>
+  <ion-icon name="time" slot="end" (click)="toggleEndTimePicker()"></ion-icon>
+  <ion-datetime
+    *ngIf="showEndTimePicker"
+    displayFormat="HH:mm"
+    presentation="time" 
+    [(ngModel)]="taskEndTime"
+    (ionBlur)="hideEndTimePicker()"
+  ></ion-datetime> <!-- Fechando corretamente -->
+</ion-item>
+
+ <!-- Certifique-se de que o fechamento desta tag esteja correto e no lugar adequado -->
+
 
   <!-- Cor da Tarefa -->
   <ion-item>
