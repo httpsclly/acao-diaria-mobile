@@ -49,7 +49,7 @@ export class LoginPage {
   async login() {
     // Verificar se o email e a senha são válidos
     if (!this.isEmailValid(this.loginData.email)) {
-      await this.presentAlert('O email inserido é inválido.');
+      await this.presentAlert('As credenciais estão incorretas, tente novamente.');
       return;
     }
 

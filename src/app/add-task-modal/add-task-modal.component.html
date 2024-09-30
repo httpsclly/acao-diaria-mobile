@@ -1,13 +1,11 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Adicionar sua Ação</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="dismiss()">Fechar</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-back-button default-href="#"></ion-back-button>
+  </ion-buttons>
+  <ion-title style="margin-left: auto;" (click)="dismiss()" >Fechar</ion-title>
+</ion-toolbar>
 <ion-content>
+
   <!-- Nome da Tarefa -->
   <ion-item>
     <ion-label position="floating">Nome da Tarefa</ion-label>
@@ -75,9 +73,6 @@
     (ionBlur)="hideEndTimePicker()"
   ></ion-datetime> <!-- Fechando corretamente -->
 </ion-item>
-
- <!-- Certifique-se de que o fechamento desta tag esteja correto e no lugar adequado -->
-
 
   <!-- Cor da Tarefa -->
   <ion-item>

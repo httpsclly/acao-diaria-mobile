@@ -2,62 +2,64 @@
 
 /* Estilo para o cabeçalho do modal */
 ion-header {
-    --background: #007bff; /* Cor de fundo do cabeçalho */
-    --color: #fff; /* Cor do texto */
-  }
-  
-  ion-toolbar {
+    --background: #ffffff; /* Cor de fundo do cabeçalho (branco) */
+    --color: #333; /* Cor do texto */
+}
+
+ion-toolbar {
+    --background: #ffffff; /* Torna o toolbar branco */
     --padding-start: 16px;
     --padding-end: 16px;
-  }
-  
-  ion-title {
+}
+
+ion-title {
     font-size: 1.2rem;
     font-weight: 600;
-  }
-  
-  ion-buttons {
+    color: #007bff; /* Cor do texto do título */
+}
+
+ion-buttons {
     --padding-end: 0;
-  }
-  
-  ion-button {
+}
+
+ion-button {
     --background: transparent;
-    --color: #10a8a1;
+    --color: #007bff; /* Cor do texto do botão */
     --border-radius: 50%;
     --box-shadow: none;
     --padding: 0;
-  }
-  
-  /* Estilo para o conteúdo do modal */
-  ion-content {
+}
+
+/* Estilo para o conteúdo do modal */
+ion-content {
     --background: #f9f9f9; /* Cor de fundo do conteúdo */
     --padding: 16px;
-  }
-  
-  /* Estilo para os itens do formulário */
-  ion-item {
+}
+
+/* Estilo para os itens do formulário */
+ion-item {
     margin-bottom: 16px;
-  }
-  
-  ion-label {
+}
+
+ion-label {
     color: #333; /* Cor do rótulo */
-  }
-  
-  ion-input, ion-datetime, ion-select {
+}
+
+ion-input, ion-datetime, ion-select {
     --padding-start: 0;
     --padding-end: 0;
-  }
-  
-  ion-datetime {
+}
+
+ion-datetime {
     --border-radius: 4px;
-  }
-  
-  ion-select {
+}
+
+ion-select {
     --border-radius: 4px;
-  }
-  
-  /* Estilo para o botão de adicionar tarefa */
-  ion-button.expand-full {
+}
+
+/* Estilo para o botão de adicionar tarefa */
+ion-button.expand-full {
     --background: #007bff; /* Cor de fundo do botão */
     --color: #ffffff; /* Cor do texto do botão */
     --border-radius: 25px;
@@ -65,5 +67,11 @@ ion-header {
     --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-weight: 600;
     text-transform: uppercase;
-  }
-  
+}
+
+ion-title {
+  font-size: 1.2rem; /* Ajuste o tamanho da fonte conforme necessário */
+  font-weight: 600;
+  color: #007bff; /* Ajuste a cor do título se necessário */
+  cursor: pointer; /* Altera o cursor para indicar que é clicável */
+}
