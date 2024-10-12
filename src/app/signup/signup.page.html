@@ -6,6 +6,7 @@
     <!-- Formulário de Cadastro -->
     <form (ngSubmit)="register()" class="signup-form">
       <h2 class="login-title">Cadastre-se</h2>
+
       <!-- Campo Username -->
       <ion-item lines="none" class="input-item">
         <ion-label position="floating">Username</ion-label>
@@ -33,8 +34,8 @@
         <ion-label position="floating">Senha</ion-label>
         <ion-input
           type="password"
-          [(ngModel)]="signupData.senha"
-          name="senha"
+          [(ngModel)]="signupData.password"
+          name="password"
           required
           maxlength="7"
           pattern="[0-9]*"
@@ -45,13 +46,19 @@
       <!-- Mensagem de erro se a senha não for válida -->
       <ion-text
         color="danger"
-        *ngIf="!isPasswordValid(signupData.senha) && signupData.senha"
+        *ngIf="signupData.password && !isPasswordValid(signupData.password)"
+        class="error-message"
       >
         A senha deve conter exatamente 7 caracteres numéricos.
       </ion-text>
 
       <!-- Botão Cadastrar -->
-      <ion-button expand="block" type="submit" class="signup-btn">
+      <ion-button
+        expand="block"
+        type="submit"
+        class="signup-btn"
+        [disabled]="!signupData.username || !signupData.email || !isPasswordValid(signupData.password)"
+      >
         Cadastrar
       </ion-button>
 

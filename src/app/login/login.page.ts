@@ -58,7 +58,6 @@ export class LoginPage {
       return;
     }
 
-    // Simula um login bem-sucedido e redireciona para a página principal das tabs
     this.navCtrl.navigateRoot('/tabs');
   }
 

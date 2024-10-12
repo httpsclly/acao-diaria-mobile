@@ -1,0 +1,65 @@
+/* Container do calendário */
+.calendar-container {
+    padding: 16px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 20px 10px;
+  }
+  
+  /* Estilo da lista de tarefas */
+  .tasks-list {
+    margin-top: 20px;
+  }
+  
+  ion-card {
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+  }
+  
+  ion-card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .task-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alinha o conteúdo verticalmente */
+    width: 100%;
+    padding: 10px; /* Adiciona um pouco de espaço interno */
+    border-radius: 8px; /* Borda arredondada */
+    color: white; /* Cor do texto */
+  }
+  
+  .delete-icon {
+    font-size: 20px; 
+    color: #ff4d4d; 
+    cursor: pointer; 
+    margin-left: 10px; 
+  }
+
+  .time {
+    font-size: 14px;
+    color: #686767;
+  }
+  
+  .description {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Ícones e outros ajustes */
+  .ion-padding {
+    padding: 16px;
+  }
+  
+  ion-datetime {
+    --background: white;
+    --border-radius: 22px;
+    --box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  

@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Calendário
-    </ion-title>
+    <ion-title>Calendário</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,5 +11,34 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
-</ion-content>
+  <!-- Calendário -->
+  <div class="calendar-container">
+    <ion-datetime
+      presentation="date"
+      first-day-of-week="1"
+      (ionChange)="onDateSelected($event)"
+      locale="pt-BR"
+      show-default-buttons="true"
+      size="cover">
+    </ion-datetime>
+  </div>
+
+<!-- Lista de Tarefas -->
+<div class="tasks-list" *ngIf="selectedDate">
+  <ion-card *ngFor="let task of tasksForSelectedDate" [ngStyle]="{ 'background-color': task.color }"> <!-- Aplicando a cor da tarefa no card -->
+    <ion-card-content>
+      <div class="task-details">
+        <div class="time">{{ task.time }}</div>
+        <div class="description">{{ task.description }}</div>
+        <ion-icon
+          name="trash-outline"
+          class="delete-icon"
+          (click)="deleteTask(task)"
+          slot="end"
+        ></ion-icon>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</div>
+
+

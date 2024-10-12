@@ -24,10 +24,7 @@ export class AddTaskModalComponent {
   minDate: string = new Date().toISOString().split('T')[0]; // Data mínima é hoje
   maxDate: string = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0]; // Data máxima é 1 ano a partir de hoje
 
-  constructor(
-    private modalController: ModalController,
-    private http: HttpClient
-  ) {}
+  constructor(private modalController: ModalController, private http: HttpClient) {}
 
   dismiss() {
     this.modalController.dismiss();
@@ -44,12 +41,12 @@ export class AddTaskModalComponent {
         taskDate: formattedDate, // Enviando a data no formato ISO
         taskStartTime: this.taskStartTime,
         taskEndTime: this.taskEndTime,
-        taskColor: this.taskColor
+        taskColor: this.taskColor,
       };
 
       // Configurar headers para o POST request
       const headers = new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       });
 
       try {
@@ -57,28 +54,24 @@ export class AddTaskModalComponent {
         console.log('Resposta da API:', response);
 
         // Tentar converter a resposta em JSON
-        try {
-          const jsonResponse = JSON.parse(response);
-          console.log('Resposta JSON:', jsonResponse);
-          
-          // Verifica se a resposta contém mensagem de sucesso
-          if (jsonResponse && jsonResponse.message && jsonResponse.message.includes('sucesso')) {
-            // Fechar o modal em caso de sucesso
-            this.dismiss();
-          } else {
-            // Fechar o modal em caso de erro
-            this.dismiss();
-          }
-        } catch (jsonError) {
-          console.error('Erro ao analisar resposta JSON:', jsonError);
-          this.dismiss();
+        const jsonResponse = JSON.parse(response);
+        console.log('Resposta JSON:', jsonResponse);
+
+        // Verifica se a resposta contém mensagem de sucesso
+        if (jsonResponse && jsonResponse.message && jsonResponse.message.includes('sucesso')) {
+          console.log('Tarefa adicionada com sucesso!');
+          this.dismiss(); // Fechar o modal em caso de sucesso
+        } else {
+          console.error('Erro ao adicionar tarefa:', jsonResponse.message);
+          this.dismiss(); // Fechar o modal em caso de erro
         }
       } catch (error) {
         console.error('Erro ao adicionar tarefa:', error);
-        this.dismiss();
+        this.dismiss(); // Fechar o modal em caso de erro
       }
     } else {
-      this.dismiss();
+      console.warn('Os campos Nome da Tarefa e Descrição são obrigatórios.');
+      this.dismiss(); // Fechar o modal se os campos obrigatórios não forem preenchidos
     }
   }
 
@@ -101,8 +94,7 @@ export class AddTaskModalComponent {
   }
 
   hideDatePicker() {
-    // Apenas ocultar o date picker sem alterar o formato da data
-    this.showDatePicker = false;
+    this.showDatePicker = false; // Apenas ocultar o date picker sem alterar o formato da data
   }
 
   hideStartTimePicker() {
