@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserService } from '../user.service'; // Certifique-se de que o caminho está correto
+
+interface ApiResponse {
+  message: string;
+  // Adicione outras propriedades que sua API pode retornar, se necessário
+}
 
 @Component({
   selector: 'app-add-task-modal',
@@ -24,45 +29,37 @@ export class AddTaskModalComponent {
   minDate: string = new Date().toISOString().split('T')[0]; // Data mínima é hoje
   maxDate: string = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0]; // Data máxima é 1 ano a partir de hoje
 
-  constructor(private modalController: ModalController, private http: HttpClient) {}
+  constructor(private modalController: ModalController, private userService: UserService) {}
 
+  // Método para fechar o modal
   dismiss() {
     this.modalController.dismiss();
   }
 
+  // Método para adicionar uma nova tarefa
   async addTask() {
     if (this.taskName.trim() !== '' && this.taskDescription.trim() !== '') {
-      // Ajustar a data para o formato ISO antes de enviar ao backend
-      const formattedDate = new Date(this.taskDate).toISOString().split('T')[0];
-
+      const formattedDate = new Date(this.taskDate).toISOString(); // Formatar a data para ISO
+  
       const newTask = {
-        taskName: this.taskName,
-        taskDescription: this.taskDescription,
-        taskDate: formattedDate, // Enviando a data no formato ISO
-        taskStartTime: this.taskStartTime,
-        taskEndTime: this.taskEndTime,
-        taskColor: this.taskColor,
+        title: this.taskName,
+        description: this.taskDescription,
+        color: this.taskColor,
+        completed: false,
+        start_time: this.taskStartTime,
+        end_time: this.taskEndTime,
+        owner_id: 1 // Adicione o ID do proprietário conforme necessário
       };
-
-      // Configurar headers para o POST request
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-      });
-
+  
       try {
-        const response = await this.http.post<any>('http://127.0.0.1/acaodiaria/api.php', newTask, { headers, responseType: 'text' as 'json' }).toPromise();
-        console.log('Resposta da API:', response);
-
-        // Tentar converter a resposta em JSON
-        const jsonResponse = JSON.parse(response);
-        console.log('Resposta JSON:', jsonResponse);
-
-        // Verifica se a resposta contém mensagem de sucesso
-        if (jsonResponse && jsonResponse.message && jsonResponse.message.includes('sucesso')) {
+        const response = await this.userService.addTask(newTask).toPromise();
+  
+        if (response && (response as ApiResponse).message) { // Verificando se a resposta tem a propriedade 'message'
+          console.log('Resposta da API:', response);
           console.log('Tarefa adicionada com sucesso!');
           this.dismiss(); // Fechar o modal em caso de sucesso
         } else {
-          console.error('Erro ao adicionar tarefa:', jsonResponse.message);
+          console.error('Erro ao adicionar tarefa: Resposta inválida ou sem mensagem');
           this.dismiss(); // Fechar o modal em caso de erro
         }
       } catch (error) {
@@ -75,6 +72,7 @@ export class AddTaskModalComponent {
     }
   }
 
+  // Métodos para alternar a visibilidade dos componentes ion-datetime
   toggleDatePicker() {
     this.showDatePicker = !this.showDatePicker;
     this.showStartTimePicker = false;
@@ -93,6 +91,7 @@ export class AddTaskModalComponent {
     this.showStartTimePicker = false;
   }
 
+  // Métodos para ocultar os seletores de data e hora
   hideDatePicker() {
     this.showDatePicker = false; // Apenas ocultar o date picker sem alterar o formato da data
   }
@@ -113,6 +112,7 @@ export class AddTaskModalComponent {
     this.showEndTimePicker = false;
   }
 
+  // Método para formatar a data para o padrão brasileiro
   formatDate(dateString: string): string {
     if (!dateString) return '';
     const date = new Date(dateString);

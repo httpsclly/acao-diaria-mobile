@@ -60,3 +60,14 @@ p {
 .fab-button:hover {
   background-color: #084c4b;
 }
+
+ion-item:hover {
+  transform: scale(1.02); /* Aumenta ligeiramente o card ao passar o mouse */
+}
+
+
+.card{
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  transition: transform 0.3s ease;
+}

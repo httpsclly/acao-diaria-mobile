@@ -11,15 +11,28 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="content-pag1">
-    <div class="container">
-      <h1>O que você quer fazer hoje?</h1>
-      <p>Toque em + para adicionar suas ações.</p>
+  <ng-container *ngIf="!loading">
+    <div *ngIf="tasks.length === 0" class="content-pag1">
+      <div class="container">
+        <h1>O que você quer fazer hoje?</h1>
+        <p>Toque em + para adicionar suas ações.</p>
+      </div>
+      <img src="assets/todolist.png" alt="welcome" class="todolist" />
     </div>
 
-    <img src="assets/todolist.png" alt="welcome" class="todolist" />
-  </div>
+    <div *ngIf="tasks.length > 0">
+      <ion-list>
+        <ion-item *ngFor="let task of tasks" class="card">
+          <ion-label>
+            <h2>{{ task.title }}</h2>
+            <p>{{ task.description }}</p>
+            <p><strong>Início:</strong> {{ task.start_time }} - <strong>Término:</strong> {{ task.end_time }}</p>
+          </ion-label>
+          <ion-button color="danger" (click)="deleteTask(task.id)">Excluir</ion-button>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ng-container>
 
-  <!-- Botão redondo -->
-<button class="fab-button" (click)="openAddTaskModal()">+</button>
+  <button class="fab-button" (click)="openAddTaskModal()">+</button>
 </ion-content>

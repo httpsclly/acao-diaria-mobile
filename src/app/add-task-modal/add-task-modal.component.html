@@ -2,84 +2,92 @@
   <ion-buttons slot="start">
     <ion-back-button default-href="#"></ion-back-button>
   </ion-buttons>
-  <ion-title style="margin-left: auto;" (click)="dismiss()" >Fechar</ion-title>
+  <ion-title style="margin-left: auto;" (click)="dismiss()">Fechar</ion-title>
 </ion-toolbar>
+
 <ion-content>
 
   <!-- Nome da Tarefa -->
   <ion-item>
     <ion-label position="stacked">Nome da Tarefa:</ion-label>
-    <ion-input [(ngModel)]="taskName"   placeholder="Digite o nome da Tarefa "></ion-input>
+    <ion-input 
+      [(ngModel)]="taskName" 
+      placeholder="Digite o nome da tarefa"
+      clearInput>
+    </ion-input>
   </ion-item>
 
-<!-- Data --> 
-<ion-item>
-  <ion-label position="stacked">Data:</ion-label>
-  <ion-input
-    (click)="toggleDatePicker()"
-    [value]="formatDate(taskDate)"
-    readonly
-    placeholder="Selecionar Data"
-  ></ion-input>
-  <ion-icon name="calendar" slot="end" (click)="toggleDatePicker()"></ion-icon>
-  <ion-datetime
-    *ngIf="showDatePicker"
-    displayFormat="DD/MM/YYYY"
-    [(ngModel)]="taskDate"
-    (ionBlur)="hideDatePicker()"
-  ></ion-datetime>
-</ion-item>
+  <!-- Data --> 
+  <ion-item>
+    <ion-label position="stacked">Data:</ion-label>
+    <ion-input
+      (click)="toggleDatePicker()"
+      [value]="formatDate(taskDate)"
+      readonly
+      placeholder="Selecionar Data"
+    ></ion-input>
+    <ion-icon name="calendar" slot="end" (click)="toggleDatePicker()"></ion-icon>
+    <ion-datetime
+      *ngIf="showDatePicker"
+      presentation="date"
+      [(ngModel)]="taskDate"
+      (ionBlur)="hideDatePicker()"
+      [min]="minDate"
+      [max]="maxDate">
+    </ion-datetime>
+  </ion-item>
 
-<!-- Quando Inicia -->
-<ion-item>
-  <ion-label position="stacked">Quando Inicia:</ion-label>
-  <ion-input
-    (click)="toggleStartTimePicker()"
-    [value]="taskStartTime"
-    readonly
-    placeholder="Selecionar Início"
-  ></ion-input>
-  <ion-icon name="time" slot="end" (click)="toggleStartTimePicker()"></ion-icon>
-  <ion-datetime
-    *ngIf="showStartTimePicker"
-    displayFormat="HH:mm"
-    presentation="time" 
-    [(ngModel)]="taskStartTime"
-    (ionBlur)="hideStartTimePicker()"
-  ></ion-datetime> <!-- Fechando corretamente -->
-</ion-item>
+  <!-- Quando Inicia -->
+  <ion-item>
+    <ion-label position="stacked">Horário de Início:</ion-label>
+    <ion-input
+      (click)="toggleStartTimePicker()"
+      [value]="taskStartTime"
+      readonly
+      placeholder="Selecionar Início"
+    ></ion-input>
+    <ion-icon name="time" slot="end" (click)="toggleStartTimePicker()"></ion-icon>
+    <ion-datetime
+      *ngIf="showStartTimePicker"
+      displayFormat="HH:mm"
+      presentation="time" 
+      [(ngModel)]="taskStartTime"
+      (ionBlur)="hideStartTimePicker()"
+    ></ion-datetime>
+  </ion-item>
 
-<!-- Quando Termina -->
-<ion-item>
-  <ion-label position="stacked">Quando Termina:</ion-label>
-  <ion-input
-    (click)="toggleEndTimePicker()"
-    [value]="taskEndTime"
-    readonly
-    placeholder="Selecionar Término"
-  ></ion-input>
-  <ion-icon name="time" slot="end" (click)="toggleEndTimePicker()"></ion-icon>
-  <ion-datetime
-    *ngIf="showEndTimePicker"
-    displayFormat="HH:mm"
-    presentation="time" 
-    [(ngModel)]="taskEndTime"
-    (ionBlur)="hideEndTimePicker()"
-  ></ion-datetime> <!-- Fechando corretamente -->
-</ion-item>
+  <!-- Quando Termina -->
+  <ion-item>
+    <ion-label position="stacked">Horário de Término:</ion-label>
+    <ion-input
+      (click)="toggleEndTimePicker()"
+      [value]="taskEndTime"
+      readonly
+      placeholder="Selecionar Término"
+    ></ion-input>
+    <ion-icon name="time" slot="end" (click)="toggleEndTimePicker()"></ion-icon>
+    <ion-datetime
+      *ngIf="showEndTimePicker"
+      displayFormat="HH:mm"
+      presentation="time" 
+      [(ngModel)]="taskEndTime"
+      (ionBlur)="hideEndTimePicker()"
+    ></ion-datetime>
+  </ion-item>
 
   <!-- Cor da Tarefa -->
   <ion-item>
     <ion-label position="floating">Cor da Tarefa:</ion-label>
     <ion-select [(ngModel)]="taskColor">
-      <ion-select-option value="#ffcccc">Vermelho</ion-select-option>
-      <ion-select-option value="#ccf2ff">Azul</ion-select-option>
-      <ion-select-option value="#ccffcc">Verde</ion-select-option>
-      <ion-select-option value="#ffffcc">Amarelo</ion-select-option>
-      <ion-select-option value="#e6ccff">Roxo</ion-select-option>
+      <ion-select-option value="red">Vermelho</ion-select-option>
+      <ion-select-option value="blue">Azul</ion-select-option>
+      <ion-select-option value="green">Verde</ion-select-option>
+      <ion-select-option value="yellow">Amarelo</ion-select-option>
+      <ion-select-option value="purple">Roxo</ion-select-option>
     </ion-select>
   </ion-item>
 
   <!-- Botão Adicionar -->
   <ion-button expand="full" (click)="addTask()">Adicionar</ion-button>
+  
 </ion-content>
