@@ -1,27 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
 })
-export class Tab2Page {
+export class Tab2Page implements OnInit {
   selectedDate: string | null = null;
-  taskColor: string = '#ffcccc'; // Cor padrão para as tarefas (Vermelho Claro)
 
-  // Estrutura para armazenar as tarefas com a cor
-  tasks: { [key: string]: { time: string; description: string; color: string }[] } = {
-    '2024-10-25': [
-      { time: '10:00-13:00', description: 'Arrumar a casa', color: '#ffcccc' }, // Vermelho Claro
-      { time: '10:00-13:00', description: 'Treinar com Ana', color: '#ccffcc' }, // Verde Claro
-      { time: '10:00-13:00', description: 'Limpar o quintal', color: '#ccf2ff' }, // Azul Claro
-    ],
-    // Adicione mais datas e tarefas conforme necessário
-  };
+  // Estrutura para armazenar as tarefas com a cor e outros campos
+  tasks: { [key: string]: { time: string; title: string; color: string }[] } = {};
+  tasksForSelectedDate: { time: string; title: string; color: string }[] = [];
 
-  tasksForSelectedDate: { time: string; description: string; color: string }[] = [];
+  constructor(private userService: UserService) {}
 
-  constructor() {}
+  ngOnInit() {
+    this.fetchTasks();
+  }
+
+  fetchTasks() {
+    this.userService.getTasks().subscribe(
+      (tasks) => {
+        this.tasks = this.groupTasksByDate(tasks);
+      },
+      (error) => {
+        console.error('Erro ao carregar tarefas do backend:', error);
+      }
+    );
+  }
+
+  groupTasksByDate(tasks: any[]): { [key: string]: { time: string; title: string; color: string }[] } {
+    const groupedTasks: { [key: string]: { time: string; title: string; color: string }[] } = {};
+
+    tasks.forEach(task => {
+      const date = task.start_time.split('T')[0]; // Obtém a data no formato 'yyyy-MM-dd'
+      const time = `${task.start_time.split('T')[1].substring(0, 5)}-${task.end_time.split('T')[1].substring(0, 5)}`; // Formata o horário
+      const title = task.title; // Usa o título da tarefa
+      const color = task.color || '#ffcccc'; // Usa a cor do backend ou uma cor padrão
+
+      if (!groupedTasks[date]) {
+        groupedTasks[date] = [];
+      }
+
+      groupedTasks[date].push({ time, title, color });
+    });
+
+    return groupedTasks;
+  }
 
   onDateSelected(event: any) {
     const selectedDate = event.detail.value.split('T')[0]; // Obtém a data no formato 'yyyy-MM-dd'
@@ -33,8 +59,8 @@ export class Tab2Page {
     // Exemplo de método para adicionar tarefa
     const newTask = {
       time: '14:00-16:00', // Defina o tempo conforme necessário
-      description: 'Nova Tarefa', // Defina a descrição conforme necessário
-      color: this.taskColor, // Use a cor selecionada
+      title: 'Nova Tarefa', // Defina o título conforme necessário
+      color: '#ffcccc', // Use uma cor padrão ou defina uma lógica para cores
     };
 
     if (this.selectedDate) {
@@ -47,7 +73,7 @@ export class Tab2Page {
     }
   }
 
-  deleteTask(taskToDelete: { time: string; description: string; color: string }) {
+  deleteTask(taskToDelete: { time: string; title: string; color: string }) {
     if (this.selectedDate) {
       this.tasks[this.selectedDate] = this.tasks[this.selectedDate].filter(
         task => task !== taskToDelete
