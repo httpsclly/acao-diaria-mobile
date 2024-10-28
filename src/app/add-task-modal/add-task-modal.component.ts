@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
-
-import { UserService } from '../user.service';
+import { ModalController } from '@ionic/angular';
+import { UserService } from '../user.service'; // Certifique-se de que o caminho está correto
 
 interface ApiResponse {
   message: string;
+  // Adicione outras propriedades que sua API pode retornar, se necessário
 }
 
 @Component({
@@ -19,70 +18,58 @@ export class AddTaskModalComponent {
   taskDate: string = '';
   taskStartTime: string = '';
   taskEndTime: string = '';
-  taskColor: string = 'red';
+  taskColor: string = 'red'; // Valor padrão para a cor da tarefa
 
+  // Variáveis para controlar a visibilidade dos componentes ion-datetime
   showDatePicker: boolean = false;
   showStartTimePicker: boolean = false;
   showEndTimePicker: boolean = false;
 
-  minDate: string = new Date().toISOString().split('T')[0];
-  maxDate: string = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0];
+  // Definindo minDate e maxDate
+  minDate: string = new Date().toISOString().split('T')[0]; // Data mínima é hoje
+  maxDate: string = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0]; // Data máxima é 1 ano a partir de hoje
 
-  constructor(
-    private modalController: ModalController,
-    private userService: UserService,
-    private http: HttpClient,
-    private toastController: ToastController
-  ) {}
+  constructor(private modalController: ModalController, private userService: UserService) {}
 
+  // Método para fechar o modal
   dismiss() {
     this.modalController.dismiss();
   }
 
+  // Método para adicionar uma nova tarefa
   async addTask() {
-    if (this.taskName.trim() !== '' && this.taskDescription.trim() !== '') {
-      const formattedDate = new Date(this.taskDate).toISOString();
-
-      const taskData = {
+    if (this.taskName.trim() !== '' && this.taskStartTime && this.taskEndTime) {
+      const newTask = {
         title: this.taskName,
-        description: this.taskDescription,
-        date: formattedDate,
-        start_time: this.taskStartTime,
-        end_time: this.taskEndTime,
         color: this.taskColor,
+        completed: false,
+        start_time: this.taskDate + 'T' + this.taskStartTime + ':00', // Concatenando data e hora de início
+        end_time: this.taskDate + 'T' + this.taskEndTime + ':00', // Concatenando data e hora de término
+        owner_id: 1 // Adicione o ID do proprietário conforme necessário
       };
 
-      this.http.post('http://127.0.0.1:8000/tasks/', taskData).subscribe(
-        async (response) => {
-          const toast = await this.toastController.create({
-            message: 'Tarefa adicionada com sucesso!',
-            duration: 2000,
-            color: 'success',
-          });
-          toast.present();
-          this.dismiss();
-        },
-        async (error) => {
-          const toast = await this.toastController.create({
-            message: 'Erro ao adicionar tarefa.',
-            duration: 2000,
-            color: 'danger',
-          });
-          toast.present();
-          this.dismiss();
+      try {
+        const response = await this.userService.addTask(newTask).toPromise();
+
+        if (response && (response as ApiResponse).message) {
+          console.log('Resposta da API:', response);
+          console.log('Tarefa adicionada com sucesso!');
+          this.dismiss(); // Fechar o modal em caso de sucesso
+        } else {
+          console.error('Erro ao adicionar tarefa: Resposta inválida ou sem mensagem');
+          this.dismiss(); // Fechar o modal em caso de erro
         }
-      );
+      } catch (error) {
+        console.error('Erro ao adicionar tarefa:', error);
+        this.dismiss(); // Fechar o modal em caso de erro
+      }
     } else {
-      const toast = await this.toastController.create({
-        message: 'Os campos Nome da Tarefa e Descrição são obrigatórios.',
-        duration: 2000,
-        color: 'warning',
-      });
-      toast.present();
-      this.dismiss();
+      console.warn('Os campos Nome da Tarefa, Horário de Início e Término são obrigatórios.');
+      // Você pode manter o modal aberto para o usuário corrigir os dados, se desejar
     }
   }
 
+  // Métodos para alternar a visibilidade dos componentes ion-datetime
   toggleDatePicker() {
     this.showDatePicker = !this.showDatePicker;
     this.showStartTimePicker = false;
@@ -101,29 +88,23 @@ export class AddTaskModalComponent {
     this.showStartTimePicker = false;
   }
 
+  // Métodos para ocultar os seletores de data e hora
   hideDatePicker() {
-    this.showDatePicker = false;
+    this.showDatePicker = false; 
   }
 
   hideStartTimePicker() {
-    if (this.taskStartTime) {
-      const date = new Date(this.taskStartTime);
-      this.taskStartTime = date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-    }
     this.showStartTimePicker = false;
   }
 
   hideEndTimePicker() {
-    if (this.taskEndTime) {
-      const date = new Date(this.taskEndTime);
-      this.taskEndTime = date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-    }
     this.showEndTimePicker = false;
   }
 
+  // Método para formatar a data para o padrão brasileiro
   formatDate(dateString: string): string {
     if (!dateString) return '';
     const date = new Date(dateString);
-    return date.toLocaleDateString('pt-BR');
+    return date.toLocaleDateString('pt-BR'); // Formata a data para o padrão brasileiro
   }
 }
