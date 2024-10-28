@@ -17,6 +17,16 @@
     </ion-input>
   </ion-item>
 
+  <!-- Descrição da Tarefa -->
+  <ion-item>
+    <ion-label position="stacked">Descrição da Tarefa:</ion-label>
+    <ion-textarea 
+      [(ngModel)]="taskDescription"
+      placeholder="Digite a descrição da tarefa"
+      clearInput>
+    </ion-textarea>
+  </ion-item>
+
   <!-- Data --> 
   <ion-item>
     <ion-label position="stacked">Data:</ion-label>
