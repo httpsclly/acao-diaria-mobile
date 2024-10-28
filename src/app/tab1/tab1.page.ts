@@ -21,7 +21,11 @@ export class Tab1Page implements OnInit {
   fetchTasks() {
     this.userService.getTasks().subscribe(
       (tasks) => {
-        this.tasks = tasks;
+        this.tasks = tasks.map(task => ({
+          ...task,
+          start_time: this.convertToBrazilTime(task.start_time),
+          end_time: this.convertToBrazilTime(task.end_time),
+        }));
         this.loading = false;
       },
       (error) => {
@@ -29,6 +33,22 @@ export class Tab1Page implements OnInit {
         this.loading = false;
       }
     );
+  }
+
+  convertToBrazilTime(utcTime: string): string {
+    const date = new Date(utcTime);
+    const options: Intl.DateTimeFormatOptions = {
+      timeZone: 'America/Sao_Paulo',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    };
+
+    return date.toLocaleString('pt-BR', options);
   }
 
   async openAddTaskModal() {
