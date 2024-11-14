@@ -49,8 +49,8 @@ export class UserService {
   getUserProfile(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/user-profile`);
   }
-  getTaskCount(): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}/taskCount`);
+  getTaskCounts(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/taskCounts`);
   }
   updateUserProfileImage(profileImage: string): Observable<any> {
     const payload = { profileImage };

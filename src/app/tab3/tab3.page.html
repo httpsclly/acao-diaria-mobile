@@ -11,14 +11,6 @@
     </ion-avatar>
     <h2>{{ user.name }}</h2>
 
-    <div class="actions-info">
-      <ion-button color="success" expand="block" (click)="toggleAvailableActions()">
-        {{ taskCount }} ações disponíveis
-      </ion-button>
-      <ion-button color="medium" expand="block" (click)="toggleExcludedActions()">
-        {{ user.excludedActions.length }} ações excluídas
-      </ion-button>
-    </div>
 
     <ion-list *ngIf="showAvailableActions">
       <ion-item *ngFor="let action of user.availableActions">

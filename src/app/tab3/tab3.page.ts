@@ -20,7 +20,8 @@ export class Tab3Page implements OnInit {
     excludedActions: [] as Action[],
   };
 
-  taskCount = 0; // Propriedade para armazenar a quantidade de ações disponíveis
+  taskCount = 0; // Quantidade de tarefas disponíveis
+  excludedTaskCount = 0; // Quantidade de tarefas excluídas
   showAvailableActions = false;
   showExcludedActions = false;
 
@@ -28,9 +29,10 @@ export class Tab3Page implements OnInit {
 
   ngOnInit() {
     this.loadUserData();
-    this.loadTaskCount();
+    this.loadTaskCounts();
   }
 
+  // Carrega os dados do usuário e das tarefas
   loadUserData() {
     this.userService.getUserProfile().subscribe(
       (data: any) => {
@@ -45,10 +47,12 @@ export class Tab3Page implements OnInit {
     );
   }
 
-  loadTaskCount() {
-    this.userService.getTaskCount().subscribe(
-      (count: number) => {
-        this.taskCount = count;
+  loadTaskCounts() {
+    // Conta as tarefas disponíveis e excluídas
+    this.userService.getTaskCounts().subscribe(
+      (data: any) => {
+        this.taskCount = data.availableTaskCount;
+        this.excludedTaskCount = data.excludedTaskCount;
       },
       (error) => {
         console.error('Erro ao carregar contagem de tarefas:', error);
@@ -56,11 +60,13 @@ export class Tab3Page implements OnInit {
     );
   }
 
+  // Alterna a exibição das ações disponíveis
   toggleAvailableActions() {
     this.showAvailableActions = !this.showAvailableActions;
     this.showExcludedActions = false;
   }
 
+  // Alterna a exibição das ações excluídas
   toggleExcludedActions() {
     this.showExcludedActions = !this.showExcludedActions;
     this.showAvailableActions = false;
@@ -72,12 +78,11 @@ export class Tab3Page implements OnInit {
         quality: 90,
         allowEditing: true,
         resultType: CameraResultType.Base64,
-        source: CameraSource.Photos // Abre a galeria do dispositivo
+        source: CameraSource.Photos,
       });
 
       if (image && image.base64String) {
         this.user.profileImage = `data:image/jpeg;base64,${image.base64String}`;
-        // Salvar a nova imagem no backend
         this.userService.updateUserProfileImage(this.user.profileImage).subscribe(
           () => {
             console.log('Imagem de perfil atualizada com sucesso.');
@@ -93,11 +98,11 @@ export class Tab3Page implements OnInit {
   }
 
   alterarNomeConta() {
-    // Adicione aqui a lógica para alterar o nome da conta
+    // Lógica para alterar o nome da conta
   }
 
   alterarSenha() {
-    // Adicione aqui a lógica para alterar a senha
+    // Lógica para alterar a senha
   }
 
   sair() {
