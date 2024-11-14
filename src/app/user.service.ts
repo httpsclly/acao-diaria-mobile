@@ -45,4 +45,15 @@ export class UserService {
   getCurrentUserId(): number | null {
     return this.currentUserId;
   }
+
+  getUserProfile(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/user-profile`);
+  }
+  getTaskCount(): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/taskCount`);
+  }
+  updateUserProfileImage(profileImage: string): Observable<any> {
+    const payload = { profileImage };
+    return this.http.post(`${this.apiUrl}/updateProfileImage`, payload);
+  }
 }

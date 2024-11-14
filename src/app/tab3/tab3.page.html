@@ -1,17 +1,44 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Perfil
-    </ion-title>
+    <ion-title>Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Perfil</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="profile-container">
+    <ion-avatar>
+      <img [src]="user.profileImage || 'assets/default-image.png'" />
+    </ion-avatar>
+    <h2>{{ user.name }}</h2>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+    <div class="actions-info">
+      <ion-button color="success" expand="block" (click)="toggleAvailableActions()">
+        {{ taskCount }} ações disponíveis
+      </ion-button>
+      <ion-button color="medium" expand="block" (click)="toggleExcludedActions()">
+        {{ user.excludedActions.length }} ações excluídas
+      </ion-button>
+    </div>
+
+    <ion-list *ngIf="showAvailableActions">
+      <ion-item *ngFor="let action of user.availableActions">
+        <ion-label>{{ action.name }}</ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="showExcludedActions">
+      <ion-item *ngFor="let action of user.excludedActions">
+        <ion-label>{{ action.name }}</ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-item button (click)="alterarImagemPerfil()">
+        <ion-icon name="camera-outline" slot="start"></ion-icon>
+        <ion-label>Alterar imagem do perfil</ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-button color="danger" expand="block" (click)="sair()">Sair</ion-button>
+  </div>
 </ion-content>
