@@ -22,7 +22,7 @@
 
     <div *ngIf="tasks.length > 0">
       <ion-list>
-        <ion-item *ngFor="let task of tasks" class="card">
+        <ion-item *ngFor="let task of tasks" class="card" [ngClass]="{ 'expired': task.expired }">
           <ion-label>
             <h2>{{ task.title }}</h2>
             <p>{{ task.description }}</p>

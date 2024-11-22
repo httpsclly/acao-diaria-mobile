@@ -25,6 +25,7 @@ export class Tab1Page implements OnInit {
           ...task,
           start_time: this.convertToBrazilTime(task.start_time),
           end_time: this.convertToBrazilTime(task.end_time),
+          expired: this.isExpired(task.end_time),
         }));
         this.loading = false;
       },
@@ -51,6 +52,12 @@ export class Tab1Page implements OnInit {
     return date.toLocaleString('pt-BR', options);
   }
 
+  isExpired(endTime: string): boolean {
+    const now = new Date();
+    const endDate = new Date(endTime);
+    return now.getTime() > endDate.getTime();
+  }
+  
   async openAddTaskModal() {
     const modal = await this.modalController.create({
       component: AddTaskModalComponent,
@@ -58,12 +65,10 @@ export class Tab1Page implements OnInit {
     return await modal.present();
   }
 
-  // Método para excluir uma tarefa
   deleteTask(taskId: number) {
     this.userService.deleteTask(taskId).subscribe(
       () => {
         console.log('Tarefa excluída com sucesso!');
-        // Atualiza a lista de tarefas
         this.fetchTasks();
       },
       (error) => {
